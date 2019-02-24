@@ -7,23 +7,23 @@
     "start": "node server.js"
   },
   "dependencies": {
-		"cors": "^2.8.1",
-		"express": "^5.0.0-alpha.2",
-		"mongodb": "^2.2.5",
-		"mongoose": "^5.3.14",
+    "cors": "^2.8.1",
+    "express": "^5.0.0-alpha.2",
+    "mongodb": "^2.2.5",
+    "mongoose": "^5.3.14",
     "multer": "^1.4.1"
-	},
+  },
   "engines": {
-		"node": "10.0.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/johnww7/my-website-proj.git"
-	},
+    "node": "10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnww7/my-website-proj.git"
+  },
   "keywords": [
     "node",
-		"hyperdev",
-		"express"
+    "hyperdev",
+    "express"
   ],
   "license": "MIT"
 }
