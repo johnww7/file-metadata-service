@@ -14,3 +14,14 @@ db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function callback() {
   console.log('Connected to Mongo Database');
 });
+
+var FileItem = mongoose.FileSchema({
+  name: {type: string},
+  path: {type: string},
+  fileType: {type: string},
+  size: {type: integer}
+});
+
+let FileUpload = mongoose.model('FileUpload', FileItem);
+
+exports.FileUpload = FileUpload;
