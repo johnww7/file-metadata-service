@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URI, {
+const MONGO_URI = 'mongodb://john:N1teLockon@ds035787.mlab.com:35787/jwfccmongodb';
+//process.env.MONGO_URI
+
+mongoose.connect(MONGO_URI, {
   keepAlive: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 500,
