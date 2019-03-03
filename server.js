@@ -8,6 +8,7 @@ var fileData = require('./fileItem.js').FileUpload;
 // require and use "multer"...
 var multer = require('multer');
 //var storage = multer.memoryStorage();
+var timeout = 350000;
 
 
 var storage = multer.diskStorage({
@@ -20,8 +21,7 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({
-  storage: storage,
-  limits: {fileSize: 400000 }
+  storage: storage
 });
 
 var app = express();
@@ -37,13 +37,30 @@ app.get('/hello', function(req, res){
   res.json({greetings: "Hello, API"});
 });
 
-
+var saveFile = require('./fileItem.js').saveFile;
 app.post('/api/fileanalyse', upload.single('upfile'), function(req, res, next) {
-  res.json({
+  let filePath = 'files/'+ req.file.orignalname;
+  let fileDetails = {
     name: req.file.originalname,
-    type: req.file.mimetype,
+    path: filePath,
+    fileType: req.file.mimetype,
     size: req.file.size
+  };
+  let createTimeout = setTimeout(() => {next({message: 'timeout'}) }, timeout);
+  saveFile(fileDetails, (err, data) => {
+    clearTimeout(createTimeout);
+    if(err) {
+      console.error('File did not upload to db');
+    }
+    if(data) {
+      res.json({
+        name: req.file.originalname,
+        type: req.file.mimetype,
+        size: req.file.size
+      });
+    }
   });
+
 });
 
 app.listen(process.env.PORT || 3000, function () {
