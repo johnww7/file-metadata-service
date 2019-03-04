@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
     cb(null, './public/files')
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname)
+    cb(null, file.originalname)
   }
 });
 
@@ -39,7 +39,9 @@ app.get('/hello', function(req, res){
 
 var saveFile = require('./fileItem.js').saveFile;
 app.post('/api/fileanalyse', upload.single('upfile'), function(req, res, next) {
-  let filePath = 'files/'+ req.file.orignalname;
+  console.log('name: ' + req.file.originalname + ' type: ' + typeof(req.file.originalname));
+  let filePath = "files/"+req.file.filename;
+
   let fileDetails = {
     name: req.file.originalname,
     path: filePath,
@@ -51,6 +53,7 @@ app.post('/api/fileanalyse', upload.single('upfile'), function(req, res, next) {
     clearTimeout(createTimeout);
     if(err) {
       console.error('File did not upload to db');
+      res.send('File did not upload');
     }
     if(data) {
       res.json({
